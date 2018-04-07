@@ -99,6 +99,16 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     docker-php-ext-enable imagick \
 ;fi
 
+#####################################
+# Redis:
+#####################################
+USER root
+ARG INSTALL_REDIS=false
+RUN if [ ${INSTALL_REDIS} = true ]; then \
+    pecl install redis && \
+    docker-php-ext-enable redis \
+;fi
+
 #
 #--------------------------------------------------------------------------
 # Final Touch
