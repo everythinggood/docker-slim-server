@@ -103,7 +103,7 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 # Redis:
 #####################################
 USER root
-ARG INSTALL_REDIS=false
+ARG INSTALL_REDIS=true
 RUN if [ ${INSTALL_REDIS} = true ]; then \
     pecl install redis && \
     docker-php-ext-enable redis \
