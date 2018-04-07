@@ -2,9 +2,8 @@ FROM redis:latest
 
 VOLUME "/data"
 
-COPY  /data/dump.rdb /data/
+COPY  /data/ /data/
 
-COPY /data/redis.conf /data/
 
 EXPOSE 6379
 
