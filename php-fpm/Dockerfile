@@ -104,8 +104,19 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 #####################################
 ARG INSTALL_REDIS=true
 RUN if [ ${INSTALL_REDIS} = true ]; then \
-    pecl install redis && \
-    docker-php-ext-enable redis \
+    curl -L -o /tmp/phpredis.tar.gz "https://github.com/phpredis/phpredis/archive/3.1.6.tar.gz"\
+    && mkdir -p phpredis \
+    && tar -C phpredis -zxvf /tmp/phpredis.tar.gz --strip 1 \
+    && ( \
+    cd phpredis \
+    && phpize \
+    && ./configure \
+    && make -j$(nproc) \
+     && make install \
+    ) \
+    && rm -r phpredis \
+    && rm /tmp/phpredis.tar.gz \
+    && docker-php-ext-enable redis \
 ;fi
 
 #
